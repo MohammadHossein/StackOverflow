@@ -40,14 +40,15 @@ def signUpPage():
 def signUP():
     if request.method == 'POST':
         try:
-            user = db.users.find({'username':request.values['username']})
+            user = db.users.find({'username': request.values['username']})
             for u in user:
-                return render_template('SignUP.html',massage= 'username already taken!')
-            user = db.users.find({'email':request.values['email']})
+                return render_template('SignUP.html', massage='username already taken!')
+            user = db.users.find({'email': request.values['email']})
             for u in user:
-                return render_template('SignUP.html',massage= 'email already taken!')
+                return render_template('SignUP.html', massage='email already taken!')
             user = {'name': request.values['Name'], 'password': request.values['Password'],
-                    'username': request.values['username'], 'email': request.values['email']}
+                    'username': request.values['username'], 'email': request.values['email'],
+                    'favorites': request.values.getlist('favorite')}
 
             db.users.insert(user)
 
